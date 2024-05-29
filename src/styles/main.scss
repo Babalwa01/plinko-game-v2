@@ -2,6 +2,7 @@ $primary-color: #2fa8cc;
 $secondary-color: #f4f4f4;
 $primary-text-color: #e4dede;
 $black-color: #272424;
+$gold-color: #8C730C;
 $box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
 $bg-image: url("../sprites/background.jpg");
 
@@ -81,7 +82,7 @@ button {
   font-size: 1.5em;
   border-radius: 5px;
   font-weight: bold;
-  background-color: #8C730C;
+  background-color: $gold-color;
   color: $primary-text-color;
   padding: 0.5rem;
 }

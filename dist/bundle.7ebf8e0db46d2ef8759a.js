@@ -57,12 +57,13 @@ body {
   background: url(${___CSS_LOADER_URL_REPLACEMENT_0___}) no-repeat center fixed;
   background-size: cover;
   overflow: hidden;
-  color: #f8eeee;
+  color: #e4dede;
 }
 body .container {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 body .container #header {
   width: 100%;
@@ -70,12 +71,54 @@ body .container #header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: #e4dede;
+  margin-top: 2rem;
+}
+body .container #game-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.55);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+body .container #game-container #canvas-container {
+  background-color: rgba(0, 0, 0, 0.55);
+}
+body .container #game-over-container {
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2rem;
+  display: none;
+}
+body .container #game-over-container p {
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 button {
   border: none;
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAMA;EACE,sBAAA;EACA,SAAA;EACA,UAAA;EACA,qBAAA;EACA,2CAAA;AALF;;AAQA;EACE,YAAA;EACA,aAAA;EACA,0EAAA;EACA,sBAAA;EACA,gBAAA;EACA,cAlBmB;AAarB;AAOE;EACE,WAAA;EACA,YAAA;EACA,kBAAA;AALJ;AAOI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;AALN;;AAUA;EACE,YAAA;EACA,eAAA;AAPF","sourcesContent":["$primary-color: #2fa8cc;\r\n$secondary-color: #f4f4f4;\r\n$primary-text-color: #f8eeee;\r\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\r\n$bg-image: url(\"../sprites/background.jpg\");\r\n\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  text-decoration: none;\r\n  font-family: cursive, Helvetica, sans-serif;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: $bg-image no-repeat center fixed;\r\n  background-size: cover;\r\n  overflow: hidden;\r\n  color: $primary-text-color;\r\n\r\n  .container {\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n\r\n    #header {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n    }\r\n  }\r\n}\r\n\r\nbutton {\r\n  border: none;\r\n  cursor: pointer;\r\n}"],"sourceRoot":""}]);
+}
+
+.play-button {
+  font-size: 1.5em;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #8C730C;
+  color: #e4dede;
+  padding: 0.5rem;
+}
+
+#start-play-button {
+  margin-bottom: 0.5rem;
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAQA;EACE,sBAAA;EACA,SAAA;EACA,UAAA;EACA,qBAAA;EACA,2CAAA;AAPF;;AAUA;EACE,YAAA;EACA,aAAA;EACA,0EAAA;EACA,sBAAA;EACA,gBAAA;EACA,cApBmB;AAarB;AASE;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,oCAAA;AAPJ;AASI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAlCe;EAmCf,gBAAA;AAPN;AAUI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,qCAAA;EACA,aAAA;EACA,gBAAA;AARN;AAUM;EACE,qCAAA;AARR;AAYI;EACE,YAAA;EACA,qCAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,oBAAA;EACA,aAAA;AAVN;AAYM;EACE,kBAAA;EACA,mBAAA;AAVR;;AAkBA;EACE,YAAA;EACA,eAAA;AAfF;;AAkBA;EACE,gBAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBAhFW;EAiFX,cAnFmB;EAoFnB,eAAA;AAfF;;AAkBA;EACE,qBAAA;AAfF","sourcesContent":["$primary-color: #2fa8cc;\r\n$secondary-color: #f4f4f4;\r\n$primary-text-color: #e4dede;\r\n$black-color: #272424;\r\n$gold-color: #8C730C;\r\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\r\n$bg-image: url(\"../sprites/background.jpg\");\r\n\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  text-decoration: none;\r\n  font-family: cursive, Helvetica, sans-serif;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: $bg-image no-repeat center fixed;\r\n  background-size: cover;\r\n  overflow: hidden;\r\n  color: $primary-text-color;\r\n\r\n  .container {\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    background-color: rgba(0,0,0,.7);\r\n\r\n    #header {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      color: $primary-text-color;\r\n      margin-top: 2rem;\r\n    }\r\n\r\n    #game-container {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      background-color: rgba(0,0,0,.55);\r\n      padding: 2rem;\r\n      margin-top: 2rem;\r\n\r\n      #canvas-container {\r\n        background-color: rgba(0,0,0,.55);\r\n      }\r\n    }\r\n\r\n    #game-over-container {\r\n      width: 100vw;\r\n      background-color: rgba(0,0,0,.55);\r\n      display: flex;\r\n      flex-direction: column;\r\n      justify-content: center;\r\n      align-items: center;\r\n      padding-bottom: 2rem;\r\n      display: none;\r\n\r\n      p {\r\n        text-align: center;\r\n        margin-bottom: 1rem;\r\n      }\r\n    }\r\n  }\r\n\r\n\r\n}\r\n\r\nbutton {\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.play-button {\r\n  font-size: 1.5em;\r\n  border-radius: 5px;\r\n  font-weight: bold;\r\n  background-color: $gold-color;\r\n  color: $primary-text-color;\r\n  padding: 0.5rem;\r\n}\r\n\r\n#start-play-button {\r\n  margin-bottom: 0.5rem;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -725,13 +768,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var casinoImg = document.getElementById("casinoImg");
-casinoImg.src = _sprites_casino_png__WEBPACK_IMPORTED_MODULE_2__;
-console.log((0,_App__WEBPACK_IMPORTED_MODULE_0__["default"])());
-console.log(1);
-console.log(2);
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle.d96a403948fdd196dafb.js.map
+//# sourceMappingURL=bundle.7ebf8e0db46d2ef8759a.js.map
