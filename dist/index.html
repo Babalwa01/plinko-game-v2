@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plinko</title>
-<script defer src="bundle.d038ccc9e053e2eba168.js"></script></head>
+<script defer src="bundle.d96a403948fdd196dafb.js"></script></head>
 <body>
     <div class="container">
-        <nav>
-            <img id="casinoImg" alt="casino">
-            <h3>Plinko</h3>
-        </nav>
-        <button id="jokeBtn">Play</button>
+        <header id="header">
+                <h4>PLINKO GAME</h4>
+                <p>Click <span>PLAY</span> to start:</p>
+        </header>
+        <section id="game-container">
+            <div id="canvas-container"></div>
+            <div class="play-button-container">
+                <button id="start-play-button" class="play-button">PLAY</button>
+            </div>
+            <div>
+                <p>BALANCE <span id="balance-text"></span></p>
+            </div>
+        </section>
+        <section id="game-over-container">
+            <p>GAME OVER!</p>
+            <button id="play-again-button" class="play-button">PLAY</button>
+        </section>
     </div>
 </body>
 </html>

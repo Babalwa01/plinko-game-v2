@@ -7,11 +7,22 @@
 </head>
 <body>
     <div class="container">
-        <nav>
-            <img id="casinoImg" alt="casino">
-            <h3>Plinko</h3>
-        </nav>
-        <button id="jokeBtn">Play</button>
+        <header id="header">
+                <h2>PLINKO GAME</h2>
+        </header>
+        <section id="game-container">
+            <div id="canvas-container"></div>
+            <div class="play-button-container">
+                <button id="start-play-button" class="play-button">PLAY</button>
+            </div>
+            <div>
+                <p>BALANCE <span id="balance-text"></span></p>
+            </div>
+        </section>
+        <section id="game-over-container">
+            <p>Game Over! <br>Click to play again.</p>
+            <button id="play-again-button" class="play-button">PLAY</button>
+        </section>
     </div>
 </body>
 </html>
