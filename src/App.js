@@ -13,7 +13,7 @@ export class App {
         });
         document.getElementById("canvas-container").appendChild(this.app.view);
 
-        // load sprites
+        // load resources
         this.loader = new Loader(this.app.loader);
         this.loader.preload().then(() => {
             this.start();
