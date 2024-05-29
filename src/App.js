@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import { Loader } from "./Loader";
+import { MainScene } from "./MainScene";
 
 export class App {
     run() {
@@ -7,7 +8,8 @@ export class App {
         // create canvas
         this.app = new PIXI.Application({
             resizeTo: document.getElementById("canvas-container"),
-            antialias: true
+            antialias: true,
+            transparent: true
         });
         document.getElementById("canvas-container").appendChild(this.app.view);
 
@@ -18,8 +20,8 @@ export class App {
         });
     }
 
-    // method to start game after resources have been loaded
     start() {
-        console.log("the game started")
+        this.scene = new MainScene();
+        this.app.stage.addChild(this.scene.container);
     }
 }

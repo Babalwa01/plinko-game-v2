@@ -36016,12 +36016,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var pixi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pixi.js */ "./node_modules/pixi.js/lib/pixi.es.js");
 /* harmony import */ var _Loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loader */ "./src/Loader.js");
+/* harmony import */ var _MainScene__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MainScene */ "./src/MainScene.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
 
 
 var App = /*#__PURE__*/function () {
@@ -36035,7 +36037,8 @@ var App = /*#__PURE__*/function () {
       // create canvas
       this.app = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Application({
         resizeTo: document.getElementById("canvas-container"),
-        antialias: true
+        antialias: true,
+        backgroundColor: 0
       });
       document.getElementById("canvas-container").appendChild(this.app.view);
 
@@ -36045,12 +36048,11 @@ var App = /*#__PURE__*/function () {
         _this.start();
       });
     }
-
-    // method to start game after resources have been loaded
   }, {
     key: "start",
     value: function start() {
-      console.log("the game started");
+      this.scene = new _MainScene__WEBPACK_IMPORTED_MODULE_2__.MainScene();
+      this.app.stage.addChild(this.scene.container);
     }
   }]);
 }();
@@ -36121,6 +36123,32 @@ var LoaderConfig = {
   slot_5: __webpack_require__(/*! ./sprites/slot_5.png */ "./src/sprites/slot_5.png"),
   slot_10: __webpack_require__(/*! ./sprites/slot_10.png */ "./src/sprites/slot_10.png")
 };
+
+/***/ }),
+
+/***/ "./src/MainScene.js":
+/*!**************************!*\
+  !*** ./src/MainScene.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MainScene: () => (/* binding */ MainScene)
+/* harmony export */ });
+/* harmony import */ var pixi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pixi.js */ "./node_modules/pixi.js/lib/pixi.es.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+
+var MainScene = /*#__PURE__*/_createClass(function MainScene() {
+  _classCallCheck(this, MainScene);
+  this.container = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Container();
+});
 
 /***/ }),
 
@@ -46505,4 +46533,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle.e8cf5e293c395ad4780c.js.map
+//# sourceMappingURL=bundle.c89e0c0625a9dba51461.js.map
