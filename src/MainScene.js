@@ -13,11 +13,12 @@ export class MainScene {
         const numRows = 9;
         const radius = 10;
         const spacing = 40;
+        const totalWidth = (numRows - 1) * spacing;
 
         for (let row = 0; row < numRows; row++) {
             const numPegs = row + 1;
             const rowWidth = numPegs * spacing;
-            const xOffset = (spacing * (numRows - numPegs)) / 2;
+            const xOffset = (totalWidth - rowWidth) / 2;
 
             for (let i = 0; i < numPegs; i++) {
                 const peg = new PIXI.Sprite(pegTexture);
@@ -34,10 +35,10 @@ export class MainScene {
     createBall(ballTexture) {
         const ball = new PIXI.Sprite(ballTexture);
         ball.anchor.set(0);
-        ball.width = 20; // Adjust size as needed
+        ball.width = 20;
         ball.height = 20;
-        ball.x = 4 * 40 + 40 / 2; // Position at the center of the top row
-        ball.y = 0; // Top of the game board
+        ball.x = (this.container.width - ball.width) / 2;
+        ball.y = 0;
         this.container.addChild(ball);
     }
 
@@ -55,14 +56,15 @@ export class MainScene {
         ];
 
         const spacing = 40;
+        const totalWidth = slotTextures.length * spacing;
 
         for (let i = 0; i < slotTextures.length; i++) {
             const slot = new PIXI.Sprite(slotTextures[i]);
             slot.anchor.set(0);
-            slot.width = 30; // Adjust size as needed
+            slot.width = 30;
             slot.height = 20;
-            slot.x = i * spacing + spacing / 2;
-            slot.y = 9 * spacing + spacing / 2; // Bottom of the game board
+            slot.x = (this.container.width - totalWidth) / 2 + i * spacing + spacing / 2;
+            slot.y = 9 * spacing + spacing / 2;
             this.container.addChild(slot);
         }
     }
