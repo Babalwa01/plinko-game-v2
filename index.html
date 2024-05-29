@@ -11,12 +11,20 @@
                 <h2>PLINKO GAME</h2>
         </header>
         <section id="game-container">
-            <div id="canvas-container"></div>
-            <div class="play-button-container">
-                <button id="start-play-button" class="play-button">PLAY</button>
+            <div id="canvas-and-score-container">
+                <div id="canvas-container"></div>
+                <div class="balance-and-play-button-container">
+                    <div class="balance-container">
+                        <p>BALANCE: <span id="balance-text">100</span></p>
+                    </div>
+                    <div id="play-button-large-screens" class="play-button-container">
+                        <button id="start-play-button" class="play-button">PLAY</button>
+                    </div>
+                </div>
+                
             </div>
-            <div class="balance-container">
-                <p>BALANCE: <span id="balance-text">100</span></p>
+            <div id="play-button-mobile" class="play-button-container">
+                <button id="start-play-button" class="play-button">PLAY</button>
             </div>
         </section>
         <section id="game-over-container">

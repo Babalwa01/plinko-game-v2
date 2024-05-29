@@ -36,6 +36,8 @@ body {
       justify-content: center;
       color: $primary-text-color;
       margin-top: 2rem;
+      border-bottom: 0.1px solid $primary-text-color;
+      padding-bottom: 2rem;
     }
 
     #game-container {
@@ -45,33 +47,75 @@ body {
       align-items: center;
       justify-content: center;
       padding: 2rem 1rem;
-      margin-top: 2rem;
 
-      #canvas-container {
-        background-color: rgba(0,0,0,.55);
-        width: 90vw;
-        height: 35rem;
-        margin-bottom: 2rem;
-        border-radius: 5px;
-
-        @media screen and (min-width: 820px) {
-          width: 80vw;
-          height: 45rem;
-        }
-
+      #canvas-and-score-container {
+       
         @media screen and (min-width: 1024px) {
-          width: 40vw;
-          height: 28rem;
+          display: flex;
         }
 
-        @media screen and (min-width: 1280px) {
-          width: 35vw;
-          height: 32rem;
+        #canvas-container {
+          background-color: rgba(0,0,0,.55);
+          width: 90vw;
+          height: 28rem;
+          margin-bottom: 2rem;
+          border-radius: 5px;
+  
+          @media screen and (min-width: 820px) {
+            width: 80vw;
+            height: 45rem;
+          }
+  
+          @media screen and (min-width: 1024px) {
+            width: 40vw;
+            height: 28rem;
+            margin-right: 1rem;
+          }
+  
+          @media screen and (min-width: 1280px) {
+            width: 35vw;
+            height: 32rem;
+          }
+        }
+
+        .balance-and-play-button-container {
+
+          display: flex;
+          flex-direction: column;
+
+          .balance-container {
+            background-color: rgba(0,0,0,.6);
+            border-radius: 5px;
+            padding: 1rem 2rem;
+            height: fit-content;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+          
+            p {
+              font-weight: bold;
+            }
+          }
+
+          .play-button-container {
+            margin-bottom: 1rem;
+          }
+
+          #play-button-large-screens {
+            display: none;
+
+            @media screen and (min-width: 1024px) {
+              display: block;
+            }
+          }
         }
       }
 
-      .play-button-container {
-        margin-bottom: 1rem;
+      #play-button-mobile {
+          
+        @media screen and (min-width: 1024px) {
+          display: none;
+        }
       }
     }
 
@@ -117,14 +161,4 @@ button {
 
 #start-play-button {
   margin-bottom: 0.5rem;
-}
-
-.balance-container {
-  background-color: rgba(0,0,0,.6);
-  border-radius: 5px;
-  padding: 1rem 2rem;
-
-  p {
-    font-weight: bold;
-  }
 }
