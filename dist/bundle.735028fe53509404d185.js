@@ -73,6 +73,8 @@ body .container #header {
   justify-content: center;
   color: #e4dede;
   margin-top: 2rem;
+  border-bottom: 0.1px solid #e4dede;
+  padding-bottom: 2rem;
 }
 body .container #game-container {
   width: 100%;
@@ -80,12 +82,70 @@ body .container #game-container {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.55);
-  padding: 2rem;
-  margin-top: 2rem;
+  padding: 2rem 1rem;
 }
-body .container #game-container #canvas-container {
+@media screen and (min-width: 1024px) {
+  body .container #game-container #canvas-and-score-container {
+    display: flex;
+  }
+}
+body .container #game-container #canvas-and-score-container #canvas-container {
   background-color: rgba(0, 0, 0, 0.55);
+  width: 90vw;
+  height: 28rem;
+  margin-bottom: 2rem;
+  border-radius: 5px;
+}
+@media screen and (min-width: 820px) {
+  body .container #game-container #canvas-and-score-container #canvas-container {
+    width: 80vw;
+    height: 45rem;
+  }
+}
+@media screen and (min-width: 1024px) {
+  body .container #game-container #canvas-and-score-container #canvas-container {
+    width: 40vw;
+    height: 28rem;
+    margin-right: 1rem;
+  }
+}
+@media screen and (min-width: 1280px) {
+  body .container #game-container #canvas-and-score-container #canvas-container {
+    width: 35vw;
+    height: 32rem;
+  }
+}
+body .container #game-container #canvas-and-score-container .balance-and-play-button-container {
+  display: flex;
+  flex-direction: column;
+}
+body .container #game-container #canvas-and-score-container .balance-and-play-button-container .balance-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+body .container #game-container #canvas-and-score-container .balance-and-play-button-container .balance-container p {
+  font-weight: bold;
+}
+body .container #game-container #canvas-and-score-container .balance-and-play-button-container .play-button-container {
+  margin-bottom: 1rem;
+}
+body .container #game-container #canvas-and-score-container .balance-and-play-button-container #play-button-large-screens {
+  display: none;
+}
+@media screen and (min-width: 1024px) {
+  body .container #game-container #canvas-and-score-container .balance-and-play-button-container #play-button-large-screens {
+    display: block;
+  }
+}
+@media screen and (min-width: 1024px) {
+  body .container #game-container #play-button-mobile {
+    display: none;
+  }
 }
 body .container #game-over-container {
   width: 100vw;
@@ -113,12 +173,16 @@ button {
   font-weight: bold;
   background-color: #8C730C;
   color: #e4dede;
-  padding: 0.5rem;
+  padding: 1rem 2rem;
+  transition: all 0.3s ease;
+}
+.play-button:hover {
+  transform: scale(1.1);
 }
 
 #start-play-button {
   margin-bottom: 0.5rem;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAQA;EACE,sBAAA;EACA,SAAA;EACA,UAAA;EACA,qBAAA;EACA,2CAAA;AAPF;;AAUA;EACE,YAAA;EACA,aAAA;EACA,0EAAA;EACA,sBAAA;EACA,gBAAA;EACA,cApBmB;AAarB;AASE;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,oCAAA;AAPJ;AASI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAlCe;EAmCf,gBAAA;AAPN;AAUI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,qCAAA;EACA,aAAA;EACA,gBAAA;AARN;AAUM;EACE,qCAAA;AARR;AAYI;EACE,YAAA;EACA,qCAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,oBAAA;EACA,aAAA;AAVN;AAYM;EACE,kBAAA;EACA,mBAAA;AAVR;;AAkBA;EACE,YAAA;EACA,eAAA;AAfF;;AAkBA;EACE,gBAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBAhFW;EAiFX,cAnFmB;EAoFnB,eAAA;AAfF;;AAkBA;EACE,qBAAA;AAfF","sourcesContent":["$primary-color: #2fa8cc;\r\n$secondary-color: #f4f4f4;\r\n$primary-text-color: #e4dede;\r\n$black-color: #272424;\r\n$gold-color: #8C730C;\r\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\r\n$bg-image: url(\"../sprites/background.jpg\");\r\n\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  text-decoration: none;\r\n  font-family: cursive, Helvetica, sans-serif;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: $bg-image no-repeat center fixed;\r\n  background-size: cover;\r\n  overflow: hidden;\r\n  color: $primary-text-color;\r\n\r\n  .container {\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    background-color: rgba(0,0,0,.7);\r\n\r\n    #header {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      color: $primary-text-color;\r\n      margin-top: 2rem;\r\n    }\r\n\r\n    #game-container {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      background-color: rgba(0,0,0,.55);\r\n      padding: 2rem;\r\n      margin-top: 2rem;\r\n\r\n      #canvas-container {\r\n        background-color: rgba(0,0,0,.55);\r\n      }\r\n    }\r\n\r\n    #game-over-container {\r\n      width: 100vw;\r\n      background-color: rgba(0,0,0,.55);\r\n      display: flex;\r\n      flex-direction: column;\r\n      justify-content: center;\r\n      align-items: center;\r\n      padding-bottom: 2rem;\r\n      display: none;\r\n\r\n      p {\r\n        text-align: center;\r\n        margin-bottom: 1rem;\r\n      }\r\n    }\r\n  }\r\n\r\n\r\n}\r\n\r\nbutton {\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.play-button {\r\n  font-size: 1.5em;\r\n  border-radius: 5px;\r\n  font-weight: bold;\r\n  background-color: $gold-color;\r\n  color: $primary-text-color;\r\n  padding: 0.5rem;\r\n}\r\n\r\n#start-play-button {\r\n  margin-bottom: 0.5rem;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAQA;EACE,sBAAA;EACA,SAAA;EACA,UAAA;EACA,qBAAA;EACA,2CAAA;AAPF;;AAUA;EACE,YAAA;EACA,aAAA;EACA,0EAAA;EACA,sBAAA;EACA,gBAAA;EACA,cApBmB;AAarB;AASE;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,oCAAA;AAPJ;AASI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAlCe;EAmCf,gBAAA;EACA,kCAAA;EACA,oBAAA;AAPN;AAUI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;AARN;AAYQ;EAFF;IAGI,aAAA;EATR;AACF;AAWQ;EACE,qCAAA;EACA,WAAA;EACA,aAAA;EACA,mBAAA;EACA,kBAAA;AATV;AAWU;EAPF;IAQI,WAAA;IACA,aAAA;EARV;AACF;AAUU;EAZF;IAaI,WAAA;IACA,aAAA;IACA,kBAAA;EAPV;AACF;AASU;EAlBF;IAmBI,WAAA;IACA,aAAA;EANV;AACF;AASQ;EAEE,aAAA;EACA,sBAAA;AARV;AAUU;EACE,oCAAA;EACA,kBAAA;EACA,kBAAA;EACA,mBAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;AARZ;AAUY;EACE,iBAAA;AARd;AAYU;EACE,mBAAA;AAVZ;AAaU;EACE,aAAA;AAXZ;AAaY;EAHF;IAII,cAAA;EAVZ;AACF;AAiBQ;EAFF;IAGI,aAAA;EAdR;AACF;AAkBI;EACE,YAAA;EACA,qCAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,oBAAA;EACA,aAAA;AAhBN;AAkBM;EACE,kBAAA;EACA,mBAAA;AAhBR;;AAwBA;EACE,YAAA;EACA,eAAA;AArBF;;AAwBA;EACE,gBAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBAlJW;EAmJX,cArJmB;EAsJnB,kBAAA;EACA,yBAAA;AArBF;AAuBE;EACE,qBAAA;AArBJ;;AA0BA;EACE,qBAAA;AAvBF","sourcesContent":["$primary-color: #2fa8cc;\r\n$secondary-color: #f4f4f4;\r\n$primary-text-color: #e4dede;\r\n$black-color: #272424;\r\n$gold-color: #8C730C;\r\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\r\n$bg-image: url(\"../sprites/background.jpg\");\r\n\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  text-decoration: none;\r\n  font-family: cursive, Helvetica, sans-serif;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: $bg-image no-repeat center fixed;\r\n  background-size: cover;\r\n  overflow: hidden;\r\n  color: $primary-text-color;\r\n\r\n  .container {\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    background-color: rgba(0,0,0,.7);\r\n\r\n    #header {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      color: $primary-text-color;\r\n      margin-top: 2rem;\r\n      border-bottom: 0.1px solid $primary-text-color;\r\n      padding-bottom: 2rem;\r\n    }\r\n\r\n    #game-container {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      padding: 2rem 1rem;\r\n\r\n      #canvas-and-score-container {\r\n       \r\n        @media screen and (min-width: 1024px) {\r\n          display: flex;\r\n        }\r\n\r\n        #canvas-container {\r\n          background-color: rgba(0,0,0,.55);\r\n          width: 90vw;\r\n          height: 28rem;\r\n          margin-bottom: 2rem;\r\n          border-radius: 5px;\r\n  \r\n          @media screen and (min-width: 820px) {\r\n            width: 80vw;\r\n            height: 45rem;\r\n          }\r\n  \r\n          @media screen and (min-width: 1024px) {\r\n            width: 40vw;\r\n            height: 28rem;\r\n            margin-right: 1rem;\r\n          }\r\n  \r\n          @media screen and (min-width: 1280px) {\r\n            width: 35vw;\r\n            height: 32rem;\r\n          }\r\n        }\r\n\r\n        .balance-and-play-button-container {\r\n\r\n          display: flex;\r\n          flex-direction: column;\r\n\r\n          .balance-container {\r\n            background-color: rgba(0,0,0,.6);\r\n            border-radius: 5px;\r\n            padding: 1rem 2rem;\r\n            height: fit-content;\r\n            display: flex;\r\n            justify-content: center;\r\n            margin-bottom: 1rem;\r\n          \r\n            p {\r\n              font-weight: bold;\r\n            }\r\n          }\r\n\r\n          .play-button-container {\r\n            margin-bottom: 1rem;\r\n          }\r\n\r\n          #play-button-large-screens {\r\n            display: none;\r\n\r\n            @media screen and (min-width: 1024px) {\r\n              display: block;\r\n            }\r\n          }\r\n        }\r\n      }\r\n\r\n      #play-button-mobile {\r\n          \r\n        @media screen and (min-width: 1024px) {\r\n          display: none;\r\n        }\r\n      }\r\n    }\r\n\r\n    #game-over-container {\r\n      width: 100vw;\r\n      background-color: rgba(0,0,0,.55);\r\n      display: flex;\r\n      flex-direction: column;\r\n      justify-content: center;\r\n      align-items: center;\r\n      padding-bottom: 2rem;\r\n      display: none;\r\n\r\n      p {\r\n        text-align: center;\r\n        margin-bottom: 1rem;\r\n      }\r\n    }\r\n  }\r\n\r\n\r\n}\r\n\r\nbutton {\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.play-button {\r\n  font-size: 1.5em;\r\n  border-radius: 5px;\r\n  font-weight: bold;\r\n  background-color: $gold-color;\r\n  color: $primary-text-color;\r\n  padding: 1rem 2rem;\r\n  transition: all 0.3s ease;\r\n\r\n  &:hover {\r\n    transform: scale(1.1);\r\n  }\r\n\r\n}\r\n\r\n#start-play-button {\r\n  margin-bottom: 0.5rem;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -772,4 +836,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle.7ebf8e0db46d2ef8759a.js.map
+//# sourceMappingURL=bundle.735028fe53509404d185.js.map
