@@ -1,5 +1,8 @@
 import * as PIXI from "pixi.js";
+import * as TWEEN from "@tweenjs/tween.js";
 import { Globals } from "./Globals";
+
+let points = 100;
 
 export class MainScene {
     constructor(app) {
@@ -9,6 +12,7 @@ export class MainScene {
         this.createBall(Globals.resources["golden_ball"].texture);
         this.createSlots(Globals.resources);
         this.positionElements();
+        this.updateScore();
         this.playButtons = document.getElementsByClassName("play-button");
         Array.from(this.playButtons).forEach((playButton) => {
             playButton.addEventListener("click", () => this.startGame());
@@ -81,24 +85,78 @@ export class MainScene {
         this.container.position.set((this.app.screen.width - this.container.width) / 2, (this.app.screen.height - this.container.height) / 2);
     }
 
-    startGame() {
-        this.isGameStarted = true;
-        // Start ball animation
-        console.log("Game Started!");
+    updateScore() {
+        document.getElementById("balance-text").innerHTML = points;
     }
 
-    ballLandsOnSlot(points) {
+    checkBallPosition() {
+        // Logic to check the ball's position and return the points
+        // For now, let's just return a random number between 0 and 10 as an example
+        return Math.floor(Math.random() * 11);
+    }
+
+    startGame() {
+        this.isGameStarted = true;
+        points -= 10;
+        this.updateScore();
+
+        // Reset ball position
+        const ball = this.container.getChildAt(55); // the golden ball is the 55th child
+        ball.position.set((this.container.width - ball.width) / 2, 21);
+
+        // Start ball animation
+        const targetY = 500;
+        const duration = 1000;
+
+        new TWEEN.Tween(ball.position)
+            .to({ y: targetY }, duration)
+            .easing(TWEEN.Easing.Quadratic.Out)
+            .onComplete(() => {
+                // check if the ball landed on a slot
+                const points = this.checkBallPosition();
+                this.ballLandsOnSlot(points);
+            })
+            .start();
+
+        // update tween
+        const animate = () => {
+            if(TWEEN.update()) {
+                requestAnimationFrame(animate);
+            }
+        };
+        animate();
+
+        console.log("Game started!");
+    }
+
+    ballLandsOnSlot(slotPoints) {
         // Check if the points are less than 10
-        if (points < 10) {
+        if (points + slotPoints < 10) {
             this.gameOver();
         } else {
             this.isBallLanded = true;
+            points += slotPoints;
+            this.updateScore();
             this.enablePlayButton();
         }
     }
 
     enablePlayButton() {
-        // Enable the play button
-        this.playButton.disabled = false;
+        const playButtons = document.getElementsByClassName("play-button");
+        Array.from(playButtons).forEach((playButton) => {
+            playButton.disabled = false;
+        });
+    }
+
+    gameOver() {
+        alert("You ran out of points! Play again!");
+        
+        // Reset ball position
+        const ball = this.container.getChildAt(55); // the golden ball is the 55th child
+        ball.position.set((this.container.width - ball.width) / 2, 21);
+
+        // Reset points to 100
+        points = 100;
+        this.updateScore();
     }
 }
