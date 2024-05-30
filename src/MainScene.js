@@ -9,11 +9,12 @@ export class MainScene {
         this.createBall(Globals.resources["golden_ball"].texture);
         this.createSlots(Globals.resources);
         this.positionElements();
-
-    }
-
-    positionElements() {
-        this.container.position.set((this.app.screen.width - this.container.width) / 2, (this.app.screen.height - this.container.height) / 2);
+        this.playButtons = document.getElementsByClassName("play-button");
+        Array.from(this.playButtons).forEach((playButton) => {
+            playButton.addEventListener("click", () => this.startGame());
+        });
+        this.isGameStarted = false;
+        this.isBallLanded = false;
     }
 
     createPegs(pegTexture) {
@@ -74,5 +75,30 @@ export class MainScene {
             slot.y = 10 * spacing + spacing / 2;
             this.container.addChild(slot);
         }
+    }
+
+    positionElements() {
+        this.container.position.set((this.app.screen.width - this.container.width) / 2, (this.app.screen.height - this.container.height) / 2);
+    }
+
+    startGame() {
+        this.isGameStarted = true;
+        // Start ball animation
+        console.log("Game Started!");
+    }
+
+    ballLandsOnSlot(points) {
+        // Check if the points are less than 10
+        if (points < 10) {
+            this.gameOver();
+        } else {
+            this.isBallLanded = true;
+            this.enablePlayButton();
+        }
+    }
+
+    enablePlayButton() {
+        // Enable the play button
+        this.playButton.disabled = false;
     }
 }
