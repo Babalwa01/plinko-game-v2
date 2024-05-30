@@ -21,7 +21,7 @@ export class App {
     }
 
     start() {
-        this.scene = new MainScene();
+        this.scene = new MainScene(this.app);
         this.app.stage.addChild(this.scene.container);
     }
 }

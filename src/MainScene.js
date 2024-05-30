@@ -2,17 +2,24 @@ import * as PIXI from "pixi.js";
 import { Globals } from "./Globals";
 
 export class MainScene {
-    constructor() {
+    constructor(app) {
+        this.app = app;
         this.container = new PIXI.Container();
         this.createPegs(Globals.resources["circle"].texture);
         this.createBall(Globals.resources["golden_ball"].texture);
-        this.createSlots(Globals.resources)
+        this.createSlots(Globals.resources);
+        this.positionElements();
+
+    }
+
+    positionElements() {
+        this.container.position.set((this.app.screen.width - this.container.width) / 2, (this.app.screen.height - this.container.height) / 2);
     }
 
     createPegs(pegTexture) {
-        const numRows = 9;
+        const numRows = 10;
         const radius = 10;
-        const spacing = 40;
+        const spacing = 43;
         const totalWidth = (numRows - 1) * spacing;
 
         for (let row = 0; row < numRows; row++) {
@@ -38,7 +45,7 @@ export class MainScene {
         ball.width = 20;
         ball.height = 20;
         ball.x = (this.container.width - ball.width) / 2;
-        ball.y = 0;
+        ball.y = 21;
         this.container.addChild(ball);
     }
 
@@ -55,16 +62,16 @@ export class MainScene {
             resources["slot_10"].texture
         ];
 
-        const spacing = 40;
+        const spacing = 44;
         const totalWidth = slotTextures.length * spacing;
 
         for (let i = 0; i < slotTextures.length; i++) {
             const slot = new PIXI.Sprite(slotTextures[i]);
-            slot.anchor.set(0);
-            slot.width = 30;
-            slot.height = 20;
+            slot.anchor.set(0.5);
+            slot.width = 38;
+            slot.height = 25;
             slot.x = (this.container.width - totalWidth) / 2 + i * spacing + spacing / 2;
-            slot.y = 9 * spacing + spacing / 2;
+            slot.y = 10 * spacing + spacing / 2;
             this.container.addChild(slot);
         }
     }
