@@ -36038,11 +36038,11 @@ var App = /*#__PURE__*/function () {
       this.app = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Application({
         resizeTo: document.getElementById("canvas-container"),
         antialias: true,
-        backgroundColor: 0
+        transparent: true
       });
       document.getElementById("canvas-container").appendChild(this.app.view);
 
-      // load sprites
+      // load resources
       this.loader = new _Loader__WEBPACK_IMPORTED_MODULE_1__.Loader(this.app.loader);
       this.loader.preload().then(function () {
         _this.start();
@@ -36051,11 +36051,28 @@ var App = /*#__PURE__*/function () {
   }, {
     key: "start",
     value: function start() {
-      this.scene = new _MainScene__WEBPACK_IMPORTED_MODULE_2__.MainScene();
+      this.scene = new _MainScene__WEBPACK_IMPORTED_MODULE_2__.MainScene(this.app);
       this.app.stage.addChild(this.scene.container);
     }
   }]);
 }();
+
+/***/ }),
+
+/***/ "./src/Globals.js":
+/*!************************!*\
+  !*** ./src/Globals.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Globals: () => (/* binding */ Globals)
+/* harmony export */ });
+var Globals = {
+  resources: {}
+};
 
 /***/ }),
 
@@ -36071,12 +36088,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Loader: () => (/* binding */ Loader)
 /* harmony export */ });
 /* harmony import */ var _LoaderConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoaderConfig */ "./src/LoaderConfig.js");
+/* harmony import */ var _Globals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Globals */ "./src/Globals.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
 
 var Loader = /*#__PURE__*/function () {
   function Loader(loader) {
@@ -36093,6 +36112,7 @@ var Loader = /*#__PURE__*/function () {
           _this.loader.add(key, _this.resources[key]);
         }
         _this.loader.load(function (loader, resources) {
+          _Globals__WEBPACK_IMPORTED_MODULE_1__.Globals.resources = resources;
           console.log("resources loaded!", resources);
           resolve();
         });
@@ -36138,17 +36158,114 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   MainScene: () => (/* binding */ MainScene)
 /* harmony export */ });
 /* harmony import */ var pixi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pixi.js */ "./node_modules/pixi.js/lib/pixi.es.js");
+/* harmony import */ var _Globals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Globals */ "./src/Globals.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 
-var MainScene = /*#__PURE__*/_createClass(function MainScene() {
-  _classCallCheck(this, MainScene);
-  this.container = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Container();
-});
+
+var MainScene = /*#__PURE__*/function () {
+  function MainScene(app) {
+    var _this = this;
+    _classCallCheck(this, MainScene);
+    this.app = app;
+    this.container = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Container();
+    this.createPegs(_Globals__WEBPACK_IMPORTED_MODULE_1__.Globals.resources["circle"].texture);
+    this.createBall(_Globals__WEBPACK_IMPORTED_MODULE_1__.Globals.resources["golden_ball"].texture);
+    this.createSlots(_Globals__WEBPACK_IMPORTED_MODULE_1__.Globals.resources);
+    this.positionElements();
+    this.playButtons = document.getElementsByClassName("play-button");
+    Array.from(this.playButtons).forEach(function (playButton) {
+      playButton.addEventListener("click", function () {
+        return _this.startGame();
+      });
+    });
+    this.isGameStarted = false;
+    this.isBallLanded = false;
+  }
+  return _createClass(MainScene, [{
+    key: "createPegs",
+    value: function createPegs(pegTexture) {
+      var numRows = 10;
+      var radius = 10;
+      var spacing = 43;
+      var totalWidth = (numRows - 1) * spacing;
+      for (var row = 0; row < numRows; row++) {
+        var numPegs = row + 1;
+        var rowWidth = numPegs * spacing;
+        var xOffset = (totalWidth - rowWidth) / 2;
+        for (var i = 0; i < numPegs; i++) {
+          var peg = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Sprite(pegTexture);
+          peg.anchor.set(0);
+          peg.width = radius * 2;
+          peg.height = radius * 2;
+          peg.x = xOffset + i * spacing + spacing / 2;
+          peg.y = row * spacing + spacing / 2;
+          this.container.addChild(peg);
+        }
+      }
+    }
+  }, {
+    key: "createBall",
+    value: function createBall(ballTexture) {
+      var ball = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Sprite(ballTexture);
+      ball.anchor.set(0);
+      ball.width = 20;
+      ball.height = 20;
+      ball.x = (this.container.width - ball.width) / 2;
+      ball.y = 21;
+      this.container.addChild(ball);
+    }
+  }, {
+    key: "createSlots",
+    value: function createSlots(resources) {
+      var slotTextures = [resources["slot_10"].texture, resources["slot_5"].texture, resources["slot_2"].texture, resources["slot_1"].texture, resources["slot_0"].texture, resources["slot_1"].texture, resources["slot_2"].texture, resources["slot_5"].texture, resources["slot_10"].texture];
+      var spacing = 44;
+      var totalWidth = slotTextures.length * spacing;
+      for (var i = 0; i < slotTextures.length; i++) {
+        var slot = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Sprite(slotTextures[i]);
+        slot.anchor.set(0.5);
+        slot.width = 38;
+        slot.height = 28;
+        slot.x = (this.container.width - totalWidth) / 2 + i * spacing + spacing / 2;
+        slot.y = 10 * spacing + spacing / 2;
+        this.container.addChild(slot);
+      }
+    }
+  }, {
+    key: "positionElements",
+    value: function positionElements() {
+      this.container.position.set((this.app.screen.width - this.container.width) / 2, (this.app.screen.height - this.container.height) / 2);
+    }
+  }, {
+    key: "startGame",
+    value: function startGame() {
+      this.isGameStarted = true;
+      // Start ball animation
+      console.log("Game Started!");
+    }
+  }, {
+    key: "ballLandsOnSlot",
+    value: function ballLandsOnSlot(points) {
+      // Check if the points are less than 10
+      if (points < 10) {
+        this.gameOver();
+      } else {
+        this.isBallLanded = true;
+        this.enablePlayButton();
+      }
+    }
+  }, {
+    key: "enablePlayButton",
+    value: function enablePlayButton() {
+      // Enable the play button
+      this.playButton.disabled = false;
+    }
+  }]);
+}();
 
 /***/ }),
 
@@ -36299,28 +36416,32 @@ body .container #game-container {
 }
 body .container #game-container #canvas-and-score-container #canvas-container {
   background-color: rgba(0, 0, 0, 0.55);
-  width: 90vw;
-  height: 28rem;
+  width: 95vw;
+  height: 35rem;
   margin-bottom: 2rem;
   border-radius: 5px;
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 @media screen and (min-width: 820px) {
   body .container #game-container #canvas-and-score-container #canvas-container {
-    width: 80vw;
-    height: 45rem;
+    width: 70vw;
+    height: 35rem;
   }
 }
 @media screen and (min-width: 1024px) {
   body .container #game-container #canvas-and-score-container #canvas-container {
-    width: 40vw;
-    height: 28rem;
+    width: 30rem;
+    height: 35rem;
     margin-right: 1rem;
   }
 }
 @media screen and (min-width: 1280px) {
   body .container #game-container #canvas-and-score-container #canvas-container {
     width: 35vw;
-    height: 32rem;
   }
 }
 body .container #game-container #canvas-and-score-container .balance-and-play-button-container {
@@ -36390,7 +36511,7 @@ button {
 
 #start-play-button {
   margin-bottom: 0.5rem;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAQA;EACE,sBAAA;EACA,SAAA;EACA,UAAA;EACA,qBAAA;EACA,2CAAA;AAPF;;AAUA;EACE,YAAA;EACA,aAAA;EACA,0EAAA;EACA,sBAAA;EACA,gBAAA;EACA,cApBmB;AAarB;AASE;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,qBAAA;EACA,gCAAA;EACA,mBAAA;EACA,oCAAA;AAPJ;AASI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cArCe;EAsCf,kBAAA;EACA,kCAAA;AAPN;AAUI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,oBAAA;AARN;AAYQ;EAFF;IAGI,aAAA;EATR;AACF;AAWQ;EACE,qCAAA;EACA,WAAA;EACA,aAAA;EACA,mBAAA;EACA,kBAAA;AATV;AAWU;EAPF;IAQI,WAAA;IACA,aAAA;EARV;AACF;AAUU;EAZF;IAaI,WAAA;IACA,aAAA;IACA,kBAAA;EAPV;AACF;AASU;EAlBF;IAmBI,WAAA;IACA,aAAA;EANV;AACF;AASQ;EAEE,aAAA;EACA,sBAAA;AARV;AAUU;EACE,oCAAA;EACA,kBAAA;EACA,kBAAA;EACA,mBAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;AARZ;AAUY;EACE,iBAAA;AARd;AAYU;EACE,mBAAA;AAVZ;AAaU;EACE,aAAA;AAXZ;AAaY;EAHF;IAII,cAAA;EAVZ;AACF;AAiBQ;EAFF;IAGI,aAAA;EAdR;AACF;AAkBI;EACE,YAAA;EACA,qCAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,oBAAA;EACA,aAAA;AAhBN;AAkBM;EACE,kBAAA;EACA,mBAAA;AAhBR;;AAwBA;EACE,YAAA;EACA,eAAA;AArBF;;AAwBA;EACE,gBAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBApJW;EAqJX,cAvJmB;EAwJnB,kBAAA;EACA,yBAAA;AArBF;AAuBE;EACE,qBAAA;AArBJ;;AA0BA;EACE,qBAAA;AAvBF","sourcesContent":["$primary-color: #2fa8cc;\r\n$secondary-color: #f4f4f4;\r\n$primary-text-color: #e4dede;\r\n$black-color: #272424;\r\n$gold-color: #8C730C;\r\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\r\n$bg-image: url(\"../sprites/background.jpg\");\r\n\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  text-decoration: none;\r\n  font-family: cursive, Helvetica, sans-serif;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: $bg-image no-repeat center fixed;\r\n  background-size: cover;\r\n  overflow: hidden;\r\n  color: $primary-text-color;\r\n\r\n  .container {\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    scrollbar-width: thin;\r\n    scrollbar-color: $gold-color $black-color;\r\n    scroll-padding: 2em;\r\n    background-color: rgba(0,0,0,.7);\r\n\r\n    #header {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      color: $primary-text-color;\r\n      padding: 1rem 0rem;\r\n      border-bottom: 0.1px solid $primary-text-color;\r\n    }\r\n\r\n    #game-container {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      padding: 1.5rem 1rem;\r\n\r\n      #canvas-and-score-container {\r\n       \r\n        @media screen and (min-width: 1024px) {\r\n          display: flex;\r\n        }\r\n\r\n        #canvas-container {\r\n          background-color: rgba(0,0,0,.55);\r\n          width: 90vw;\r\n          height: 28rem;\r\n          margin-bottom: 2rem;\r\n          border-radius: 5px;\r\n  \r\n          @media screen and (min-width: 820px) {\r\n            width: 80vw;\r\n            height: 45rem;\r\n          }\r\n  \r\n          @media screen and (min-width: 1024px) {\r\n            width: 40vw;\r\n            height: 28rem;\r\n            margin-right: 1rem;\r\n          }\r\n  \r\n          @media screen and (min-width: 1280px) {\r\n            width: 35vw;\r\n            height: 32rem;\r\n          }\r\n        }\r\n\r\n        .balance-and-play-button-container {\r\n\r\n          display: flex;\r\n          flex-direction: column;\r\n\r\n          .balance-container {\r\n            background-color: rgba(0,0,0,.6);\r\n            border-radius: 5px;\r\n            padding: 1rem 2rem;\r\n            height: fit-content;\r\n            display: flex;\r\n            justify-content: center;\r\n            margin-bottom: 1rem;\r\n          \r\n            p {\r\n              font-weight: bold;\r\n            }\r\n          }\r\n\r\n          .play-button-container {\r\n            margin-bottom: 1rem;\r\n          }\r\n\r\n          #play-button-large-screens {\r\n            display: none;\r\n\r\n            @media screen and (min-width: 1024px) {\r\n              display: block;\r\n            }\r\n          }\r\n        }\r\n      }\r\n\r\n      #play-button-mobile {\r\n          \r\n        @media screen and (min-width: 1024px) {\r\n          display: none;\r\n        }\r\n      }\r\n    }\r\n\r\n    #game-over-container {\r\n      width: 100vw;\r\n      background-color: rgba(0,0,0,.55);\r\n      display: flex;\r\n      flex-direction: column;\r\n      justify-content: center;\r\n      align-items: center;\r\n      padding-bottom: 2rem;\r\n      display: none;\r\n\r\n      p {\r\n        text-align: center;\r\n        margin-bottom: 1rem;\r\n      }\r\n    }\r\n  }\r\n\r\n\r\n}\r\n\r\nbutton {\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.play-button {\r\n  font-size: 1.5em;\r\n  border-radius: 5px;\r\n  font-weight: bold;\r\n  background-color: $gold-color;\r\n  color: $primary-text-color;\r\n  padding: 1rem 2rem;\r\n  transition: all 0.3s ease;\r\n\r\n  &:hover {\r\n    transform: scale(1.1);\r\n  }\r\n\r\n}\r\n\r\n#start-play-button {\r\n  margin-bottom: 0.5rem;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAQA;EACE,sBAAA;EACA,SAAA;EACA,UAAA;EACA,qBAAA;EACA,2CAAA;AAPF;;AAUA;EACE,YAAA;EACA,aAAA;EACA,0EAAA;EACA,sBAAA;EACA,gBAAA;EACA,cApBmB;AAarB;AASE;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,qBAAA;EACA,gCAAA;EACA,mBAAA;EACA,oCAAA;AAPJ;AASI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cArCe;EAsCf,kBAAA;EACA,kCAAA;AAPN;AAUI;EACE,WAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,oBAAA;AARN;AAYQ;EAFF;IAGI,aAAA;EATR;AACF;AAWQ;EACE,qCAAA;EACA,WAAA;EACA,aAAA;EACA,mBAAA;EACA,kBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;AATV;AAWU;EAZF;IAaI,WAAA;IACA,aAAA;EARV;AACF;AAUU;EAjBF;IAkBI,YAAA;IACA,aAAA;IACA,kBAAA;EAPV;AACF;AASU;EAvBF;IAwBI,WAAA;EANV;AACF;AASQ;EAEE,aAAA;EACA,sBAAA;AARV;AAUU;EACE,oCAAA;EACA,kBAAA;EACA,kBAAA;EACA,mBAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;AARZ;AAUY;EACE,iBAAA;AARd;AAYU;EACE,mBAAA;AAVZ;AAaU;EACE,aAAA;AAXZ;AAaY;EAHF;IAII,cAAA;EAVZ;AACF;AAiBQ;EAFF;IAGI,aAAA;EAdR;AACF;AAkBI;EACE,YAAA;EACA,qCAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,oBAAA;EACA,aAAA;AAhBN;AAkBM;EACE,kBAAA;EACA,mBAAA;AAhBR;;AAwBA;EACE,YAAA;EACA,eAAA;AArBF;;AAwBA;EACE,gBAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBAxJW;EAyJX,cA3JmB;EA4JnB,kBAAA;EACA,yBAAA;AArBF;AAuBE;EACE,qBAAA;AArBJ;;AA0BA;EACE,qBAAA;AAvBF","sourcesContent":["$primary-color: #2fa8cc;\r\n$secondary-color: #f4f4f4;\r\n$primary-text-color: #e4dede;\r\n$black-color: #272424;\r\n$gold-color: #8C730C;\r\n$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);\r\n$bg-image: url(\"../sprites/background.jpg\");\r\n\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  text-decoration: none;\r\n  font-family: cursive, Helvetica, sans-serif;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background: $bg-image no-repeat center fixed;\r\n  background-size: cover;\r\n  overflow: hidden;\r\n  color: $primary-text-color;\r\n\r\n  .container {\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    scrollbar-width: thin;\r\n    scrollbar-color: $gold-color $black-color;\r\n    scroll-padding: 2em;\r\n    background-color: rgba(0,0,0,.7);\r\n\r\n    #header {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      color: $primary-text-color;\r\n      padding: 1rem 0rem;\r\n      border-bottom: 0.1px solid $primary-text-color;\r\n    }\r\n\r\n    #game-container {\r\n      width: 100%;\r\n      display: flex;\r\n      flex-direction: column;\r\n      align-items: center;\r\n      justify-content: center;\r\n      padding: 1.5rem 1rem;\r\n\r\n      #canvas-and-score-container {\r\n       \r\n        @media screen and (min-width: 1024px) {\r\n          display: flex;\r\n        }\r\n\r\n        #canvas-container {\r\n          background-color: rgba(0,0,0,.55);\r\n          width: 95vw;\r\n          height: 35rem;\r\n          margin-bottom: 2rem;\r\n          border-radius: 5px;\r\n          width: 95vw;\r\n          display: flex;\r\n          flex-direction: column;\r\n          justify-content: center;\r\n          align-items: center;\r\n  \r\n          @media screen and (min-width: 820px) {\r\n            width: 70vw;\r\n            height: 35rem;\r\n          }\r\n  \r\n          @media screen and (min-width: 1024px) {\r\n            width: 30rem;\r\n            height: 35rem;\r\n            margin-right: 1rem;\r\n          }\r\n  \r\n          @media screen and (min-width: 1280px) {\r\n            width: 35vw;\r\n          }\r\n        }\r\n\r\n        .balance-and-play-button-container {\r\n\r\n          display: flex;\r\n          flex-direction: column;\r\n\r\n          .balance-container {\r\n            background-color: rgba(0,0,0,.6);\r\n            border-radius: 5px;\r\n            padding: 1rem 2rem;\r\n            height: fit-content;\r\n            display: flex;\r\n            justify-content: center;\r\n            margin-bottom: 1rem;\r\n          \r\n            p {\r\n              font-weight: bold;\r\n            }\r\n          }\r\n\r\n          .play-button-container {\r\n            margin-bottom: 1rem;\r\n          }\r\n\r\n          #play-button-large-screens {\r\n            display: none;\r\n\r\n            @media screen and (min-width: 1024px) {\r\n              display: block;\r\n            }\r\n          }\r\n        }\r\n      }\r\n\r\n      #play-button-mobile {\r\n          \r\n        @media screen and (min-width: 1024px) {\r\n          display: none;\r\n        }\r\n      }\r\n    }\r\n\r\n    #game-over-container {\r\n      width: 100vw;\r\n      background-color: rgba(0,0,0,.55);\r\n      display: flex;\r\n      flex-direction: column;\r\n      justify-content: center;\r\n      align-items: center;\r\n      padding-bottom: 2rem;\r\n      display: none;\r\n\r\n      p {\r\n        text-align: center;\r\n        margin-bottom: 1rem;\r\n      }\r\n    }\r\n  }\r\n\r\n\r\n}\r\n\r\nbutton {\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.play-button {\r\n  font-size: 1.5em;\r\n  border-radius: 5px;\r\n  font-weight: bold;\r\n  background-color: $gold-color;\r\n  color: $primary-text-color;\r\n  padding: 1rem 2rem;\r\n  transition: all 0.3s ease;\r\n\r\n  &:hover {\r\n    transform: scale(1.1);\r\n  }\r\n\r\n}\r\n\r\n#start-play-button {\r\n  margin-bottom: 0.5rem;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46524,8 +46645,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-document.getElementById("logo").src = _sprites_casino_png__WEBPACK_IMPORTED_MODULE_2__;
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("logo").src = _sprites_casino_png__WEBPACK_IMPORTED_MODULE_2__;
   var app = new _App__WEBPACK_IMPORTED_MODULE_1__.App();
   app.run();
 });
@@ -46533,4 +46654,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle.c89e0c0625a9dba51461.js.map
+//# sourceMappingURL=bundle.0971819c71dbd1f05258.js.map

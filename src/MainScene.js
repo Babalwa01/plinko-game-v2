@@ -70,7 +70,7 @@ export class MainScene {
             const slot = new PIXI.Sprite(slotTextures[i]);
             slot.anchor.set(0.5);
             slot.width = 38;
-            slot.height = 25;
+            slot.height = 28;
             slot.x = (this.container.width - totalWidth) / 2 + i * spacing + spacing / 2;
             slot.y = 10 * spacing + spacing / 2;
             this.container.addChild(slot);
