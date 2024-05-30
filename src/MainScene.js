@@ -89,10 +89,30 @@ export class MainScene {
         document.getElementById("balance-text").innerHTML = points;
     }
 
+    getBallSlotIndex() {
+        const ball = this.container.getChildAt(55); // Get the golden ball
+        const ballPositionX = ball.x; // Get the x position of the ball
+        const slots = this.container.children.slice(-9); // Get the slot sprites
+        const slotWidth = 44; // Width of each slot
+        const offset = 22; // Offset to get the center of each slot
+
+        // Iterate through the slots to find which slot the ball landed on
+        for (let i = 0; i < slots.length; i++) {
+            const slot = slots[i];
+            const slotPositionX = slot.x - offset;
+            if (ballPositionX >= slotPositionX && ballPositionX <= slotPositionX + slotWidth) {
+                return i;
+            }
+        }
+
+        return -1; // Return -1 if the ball did not land on any slot
+    }
+
+    // Logic to check the ball's position and return the points
     checkBallPosition() {
-        // Logic to check the ball's position and return the points
-        // For now, let's just return a random number between 0 and 10 as an example
-        return Math.floor(Math.random() * 11);
+        const slotIndex = this.getBallSlotIndex(); // Get the index of the slot where the ball landed
+        const slotPoints = [10, 5, 2, 1, 0, 1, 2, 5, 10]; // Points assigned to each slot position
+        return slotPoints[slotIndex]; // Return the points for that slot position
     }
 
     startGame() {
@@ -149,7 +169,7 @@ export class MainScene {
     }
 
     gameOver() {
-        alert("You ran out of points! Play again!");
+        alert("You ran out of points! Click OK to play again.");
         
         // Reset ball position
         const ball = this.container.getChildAt(55); // the golden ball is the 55th child
