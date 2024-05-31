@@ -67,6 +67,6 @@ View from different screen sizes using Chrome developer tools
 
 ### Currently working to improve some features and fix bugs:
 
-- **Mobile responsiveness**: Each time you switch to a different screen size, you need to reload the page to see the UI fully
+- **Mobile responsiveness**: Each time you switch to a different screen size, you need to refresh the page to see the UI fully
 - **Testing**: Look into adding unit tests to ensure full functionality of the game
 - **Game functionality**: Fix ball to land on its respective slot at the end of ball movement, and not on empty space above respective slot.
