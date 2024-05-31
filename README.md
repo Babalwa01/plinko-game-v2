@@ -75,3 +75,4 @@ View from different screen sizes using Chrome developer tools
 
 - Learn basics of PIXI.js and Tween.js
 - Expand knowledge on webpack JavaScript files bundler
+- Utilise resources when blocked such as Stackoverflow, PIXI.js and Tween.js docs, AI tools like ChatGPT
