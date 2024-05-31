@@ -7,6 +7,10 @@ export class Loader {
         this.resources = LoaderConfig;
     }
 
+    /**
+     * 
+     * @returns promise and loads images after promise is resolved
+     */
     preload() {
         return new Promise(resolve => {
             for(let key in this.resources) {

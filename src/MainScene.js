@@ -105,7 +105,7 @@ export class MainScene {
             }
         }
 
-        return -1; // Return -1 if the ball did not land on any slot
+        return -1; // Return -1 if the ball did not land on any slot (edge case)
     }
 
     // Logic to check the ball's position and return the points
@@ -142,7 +142,7 @@ export class MainScene {
                     .onComplete(() => {
                         // Move the ball down to the next row
                         const nextRowY = ball.y + (targetY === 92 ? 41 : 44); // Move down by the spacing between circles
-                        if (nextRowY <= 441) { // check if the ball is still within the triangle
+                        if (nextRowY <= 430) { // check if the ball is still within the triangle
                             moveBall(nextRowY); // Repeat the process
                         } else {
                             const points = this.checkBallPosition();
@@ -158,6 +158,9 @@ export class MainScene {
         moveBall(92);
     
         // update tween
+        /**
+         * tween manages shift from one property value to another to move smoothly
+         */
         const animate = () => {
             if(TWEEN.update()) {
                 requestAnimationFrame(animate);

@@ -20,6 +20,9 @@ export class App {
         });
     }
 
+    /**
+     * add MainScene container containing all game content
+     */
     start() {
         this.scene = new MainScene(this.app);
         this.app.stage.addChild(this.scene.container);

@@ -70,3 +70,8 @@ View from different screen sizes using Chrome developer tools
 - **Mobile responsiveness**: Each time you switch to a different screen size, you need to refresh the page to see the UI fully
 - **Testing**: Look into adding unit tests to ensure full functionality of the game
 - **Game functionality**: Fix ball to land on its respective slot at the end of ball movement, and not on empty space above respective slot.
+
+### Some of steps followed to create Plinko game
+
+- Learn basics of PIXI.js and Tween.js
+- Expand knowledge on webpack JavaScript files bundler

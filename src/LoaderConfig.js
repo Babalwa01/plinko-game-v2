@@ -1,3 +1,6 @@
+/**
+ * Resources used in the project
+ */
 export const LoaderConfig = {
     golden_ball: require("./sprites/golden_ball.png"),
     circle: require("./sprites/circle.png"),
