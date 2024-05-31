@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+    <div class="container">
+        <header id="header">
+            <img id="logo" alt="casino image" width="40">
+            <h2>PLINKO GAME</h2>
+        </header>
+        <section id="game-container">
+            <div id="canvas-and-score-container">
+                <div id="canvas-container"></div>
+                <div class="balance-and-play-button-container">
+                    <div class="balance-container">
+                        <p>BALANCE: <span id="balance-text"></span></p>
+                    </div>
+                    <div id="play-button-large-screens" class="play-button-container">
+                        <button id="start-play-button" class="play-button">PLAY</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="play-button-mobile" class="play-button-container">
+                <button id="start-play-button" class="play-button">PLAY</button>
+            </div>
+        </section>
+        <section id="game-over-container">
+            <p>Game Over! <br>Play again!</p>
+        </section>
+    </div>
+</body>
+</html>
