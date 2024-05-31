@@ -119,25 +119,44 @@ export class MainScene {
         this.isGameStarted = true;
         points -= 10;
         this.updateScore();
-
+    
         // Reset ball position
         const ball = this.container.getChildAt(55); // the golden ball is the 55th child
         ball.position.set((this.container.width - ball.width) / 2, 21);
-
+    
         // Start ball animation
-        const targetY = 500;
-        const duration = 1000;
-
-        new TWEEN.Tween(ball.position)
-            .to({ y: targetY }, duration)
+        const durationY = 500;
+        const durationX = 500; // Duration for horizontal movement
+    
+        const moveBall = (targetY) => {
+            new TWEEN.Tween(ball.position)
+            .to({ y: targetY }, durationY) //move the ball by vertical distance between circles
             .easing(TWEEN.Easing.Quadratic.Out)
             .onComplete(() => {
-                // check if the ball landed on a slot
-                const points = this.checkBallPosition();
-                this.ballLandsOnSlot(points);
+                const direction = Math.random() < 0.5 ? -1 : 1; // Random direction
+                // Move the ball to the left or right after reaching targetY
+                const targetX = ball.x + direction * 21; // Move by the width of the circle
+                new TWEEN.Tween(ball.position)
+                    .to({ x: targetX }, durationX)
+                    .easing(TWEEN.Easing.Linear.None)
+                    .onComplete(() => {
+                        // Move the ball down to the next row
+                        const nextRowY = ball.y + (targetY === 92 ? 41 : 44); // Move down by the spacing between circles
+                        if (nextRowY <= 441) { // check if the ball is still within the triangle
+                            moveBall(nextRowY); // Repeat the process
+                        } else {
+                            const points = this.checkBallPosition();
+                            this.ballLandsOnSlot(points);
+                        }
+                    })
+                    .start();
             })
             .start();
-
+        };
+        
+    
+        moveBall(92);
+    
         // update tween
         const animate = () => {
             if(TWEEN.update()) {
@@ -145,9 +164,10 @@ export class MainScene {
             }
         };
         animate();
-
+    
         console.log("Game started!");
     }
+    
 
     ballLandsOnSlot(slotPoints) {
         // Check if the points are less than 10
