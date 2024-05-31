@@ -2,7 +2,7 @@
 
 ### Overview
 
-This is a Plinko game which I created using PIXI.js. Plinko is a game of luck that involves
+This is a Plinko game created using PIXI.js. Plinko is a game of luck that involves
 dropping a ball from the top of a triangular board of pegs and watching the ball bounce off
 the pegs until it lands in a slot at the bottom, each slot having different point values.
 
@@ -32,13 +32,20 @@ the pegs until it lands in a slot at the bottom, each slot having different poin
 
 ### Getting Started
 
-1. Clone the repository
+1. Clone the repository from terminal
 
 ```
 git clone https://github.com/Babalwa01/plinko-game-v2.git
 ```
 
-2. Install the dependencies:
+2. Open project using code editor of choice or from terminal (.e.g open project using Visual Studio Code from terminal):
+
+```
+cd plinko-game-v2
+code .
+```
+
+3. Install the dependencies
 
 ```
 npm install
@@ -56,19 +63,10 @@ npm run build
 npm run dev
 ```
 
-5. View from different screen sizes using Chrome developer tools
+View from different screen sizes using Chrome developer tools
 
-### Features to be improved to be improved and some technical issues to be fixed
+### Currently working to improve some features and fix bugs:
 
 - **Mobile responsiveness**: Each time you switch to a different screen size, the page needs to be refreshed to show the UI fully
 - **Testing**: Look into adding unit tests to ensure full functionality of the game
 - **Game functionality**: Fix ball to land on its respective slot at the end of ball movement, and not on empty space above respective slot.
-
-### Steps followed to create project
-
-- Following through instructions to build project structure
-- Research on Game development tools
-- Setup environment (Node Package Manager, Webpack)
-- Learn basics of PIXI.js
-- Learn basics of Tween.js
-- Make use of AI tool like ChatGPT and also stack overflow to gather knowledge when stuck
