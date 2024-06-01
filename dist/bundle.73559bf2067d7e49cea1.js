@@ -36305,8 +36305,8 @@ var MainScene = /*#__PURE__*/function () {
       ball.position.set((this.container.width - ball.width) / 2, 21);
 
       // Start ball animation
-      var durationY = 500;
-      var durationX = 500; // Duration for horizontal movement
+      var durationY = 400;
+      var durationX = 400; // Duration for horizontal movement
 
       var moveBall = function moveBall(targetY) {
         new _tweenjs_tween_js__WEBPACK_IMPORTED_MODULE_1__.Tween(ball.position).to({
@@ -36320,13 +36320,18 @@ var MainScene = /*#__PURE__*/function () {
             x: targetX
           }, durationX).easing(_tweenjs_tween_js__WEBPACK_IMPORTED_MODULE_1__.Easing.Linear.None).onComplete(function () {
             // Move the ball down to the next row
-            var nextRowY = ball.y + (targetY === 92 ? 41 : 44); // Move down by the spacing between circles
+            var nextRowY = ball.y + 43; // Move down by the spacing between circles
             if (nextRowY <= 430) {
               // check if the ball is still within the triangle
               moveBall(nextRowY); // Repeat the process
             } else {
-              var _points = _this2.checkBallPosition();
-              _this2.ballLandsOnSlot(_points);
+              // move ball down to slot
+              new _tweenjs_tween_js__WEBPACK_IMPORTED_MODULE_1__.Tween(ball.position).to({
+                y: 10 * 43 + 43 / 2
+              }, durationY).easing(_tweenjs_tween_js__WEBPACK_IMPORTED_MODULE_1__.Easing.Quadratic.Out).onComplete(function () {
+                var points = _this2.checkBallPosition();
+                _this2.ballLandsOnSlot(points);
+              }).start();
             }
           }).start();
         }).start();
@@ -47684,4 +47689,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle.13b0cd4075c1dc739d42.js.map
+//# sourceMappingURL=bundle.73559bf2067d7e49cea1.js.map
