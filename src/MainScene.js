@@ -125,8 +125,8 @@ export class MainScene {
         ball.position.set((this.container.width - ball.width) / 2, 21);
     
         // Start ball animation
-        const durationY = 500;
-        const durationX = 500; // Duration for horizontal movement
+        const durationY = 400;
+        const durationX = 400; // Duration for horizontal movement
     
         const moveBall = (targetY) => {
             new TWEEN.Tween(ball.position)
@@ -141,12 +141,19 @@ export class MainScene {
                     .easing(TWEEN.Easing.Linear.None)
                     .onComplete(() => {
                         // Move the ball down to the next row
-                        const nextRowY = ball.y + (targetY === 92 ? 41 : 44); // Move down by the spacing between circles
+                        const nextRowY = ball.y + 43; // Move down by the spacing between circles
                         if (nextRowY <= 430) { // check if the ball is still within the triangle
                             moveBall(nextRowY); // Repeat the process
                         } else {
-                            const points = this.checkBallPosition();
-                            this.ballLandsOnSlot(points);
+                            // move ball down to slot
+                            new TWEEN.Tween(ball.position)
+                                .to({ y: 10 * 43 + 43 / 2 }, durationY)
+                                .easing(TWEEN.Easing.Quadratic.Out)
+                                .onComplete(() => {
+                                    const points = this.checkBallPosition();
+                                    this.ballLandsOnSlot(points);
+                                })
+                                .start();
                         }
                     })
                     .start();
