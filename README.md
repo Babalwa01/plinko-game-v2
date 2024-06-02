@@ -1,5 +1,9 @@
 # plinko-game-v2
 
+### Link to view and play game
+
+[Plinko Game](https://plinko-game-v2.netlify.app)
+
 ### Overview
 
 This is a Plinko game created using PIXI.js. Plinko is a game of luck that involves
